@@ -3,7 +3,10 @@
 @section('title', 'Admin - Dashboard')
 
 @section('content')
-    <h2 class="mb-4 fs-4" style="font-weight: 600;">Dashboard</h2>
+    <div class="mb-4">
+        <h1 class="fs-3" style="font-weight: 600;">Dashboard Admin</span></h1>
+        <p class="text-muted mt-2">Lihat ringkasan aktivitas paket di UPP SULUT hari ini disini!</p>
+    </div>
 
     {{-- KARTU STATISTIK --}}
     <div class="row mb-4">
@@ -37,11 +40,22 @@
         </div>
     @endif
     
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="mb-0 fs-4" style="font-weight: 600;">Daftar Paket di Meja Resepsionis</h2>
-        <a href="{{ route('admin.paket.create') }}" class="btn btn-pln-primary">
-            <i class="bi bi-plus-circle me-2"></i>Tambah Paket Baru
-        </a>
+    <div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-start mb-3">
+        <div class="mb-3 mb-md-0">
+            <h2 class="mb-2 fs-4 table-title" style="font-weight: 600;">Daftar Paket di Meja Resepsionis</h2>
+        </div>
+        <div class="d-grid d-md-block">
+            <a href="{{ route('admin.paket.create') }}" class="btn btn-pln-primary">
+                <i class="bi bi-plus-circle me-2"></i>Tambah Paket Baru
+            </a>
+        </div>
+    </div>
+
+    <div class="alert custom-info-alert d-flex align-items-center mb-3" role="alert">
+        <i class="bi bi-info-circle-fill flex-shrink-0 me-2"></i>
+        <div>
+            Info: Tambah paket baru dengan tombol di atas. Tandai "Ambil" jika paket sudah diterima.
+        </div>
     </div>
 
     <div class="card">
@@ -49,10 +63,11 @@
             <table class="table table-hover mb-0 align-middle table-pln">
                 <thead>
                     <tr>
-                        <th>Waktu Tiba</th>
+                        <th class="text-center">Waktu Tiba</th>
                         <th>Nama Penerima</th>
                         <th>Dari Pengirim</th>
-                        <th>Kontak Pengirim</th> {{-- KOLOM BARU DITAMBAHKAN DI SINI --}}
+                        <th>Alamat Pengirim</th>
+                        <th>Kontak Pengirim</th>
                         <th>Foto</th>
                         <th>Ekspedisi</th>
                         <th class="text-center">Aksi</th>
@@ -61,10 +76,11 @@
                 <tbody>
                     @forelse ($paketDiResepsionis as $paket)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($paket->waktu_tiba)->format('d M Y, H:i') }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($paket->waktu_tiba)->format('d M Y, H:i') }}</td>
                             <td>{{ $paket->nama_penerima }}</td>
                             <td>{{ $paket->nama_pengirim }}</td>
-                            <td>{{ $paket->kontak_pengirim ?? '-' }}</td> {{-- DATA BARU DITAMBAHKAN DI SINI --}}
+                            <td class="address-cell">{{ $paket->alamat_pengirim ?? '-' }}</td>
+                            <td>{{ $paket->kontak_pengirim ?? '-' }}</td>
                             <td>
                                 @if ($paket->foto_paket)
                                     <img src="{{ asset('storage/' . $paket->foto_paket) }}" alt="Foto Paket" style="width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem; cursor: pointer;" class="image-popup-trigger" data-image-url="{{ asset('storage/' . $paket->foto_paket) }}">
@@ -92,10 +108,10 @@
         </div>
         
         @if ($paketDiResepsionis->hasPages())
-        <div class="card-footer bg-white">
-            {{ $paketDiResepsionis->links() }}
-        </div>
-    @endif
+            <div class="card-footer bg-white">
+                {{ $paketDiResepsionis->links() }}
+            </div>
+        @endif
     </div>
 
     @foreach ($paketDiResepsionis as $paket)
@@ -103,7 +119,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Konfirmasi Pengambilan</h5>
+                        <h5 class="modal-title"><b>Konfirmasi Pengambilan</b></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <form action="{{ route('admin.paket.ambil', $paket) }}" method="POST">
@@ -112,7 +128,7 @@
                         <div class="modal-body">
                             <p>Paket untuk: <strong>{{ $paket->nama_penerima }}</strong></p>
                             <div class="mb-3">
-                                <label class="form-label">Nama Pengambil</label>
+                                <label class="form-label">Nama Penerima</label>
                                 <input type="text" name="nama_pengambil" class="form-control" value="{{ $paket->nama_penerima }}" required>
                             </div>
                         </div>

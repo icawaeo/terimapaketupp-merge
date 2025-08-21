@@ -3,12 +3,14 @@
 @section('title', 'Admin - Riwayat Paket')
 
 @section('content')
-    <h2 class="mb-4 fs-4" style="font-weight: 600;">Riwayat Paket</h2>
+    <h2 class="mb-2 fs-4" style="font-weight: 600;">Riwayat Paket</h2>
+    <p class="text-muted mb-4">Lihat riwayat paket yang sudah diambil di UPP SULUT di sini!</p>
 
-    <div class="card mb-4">
-        <div class="card-header">
+    <div class="card card-riwayat mb-4">
+        <div class="card-header card-header-riwayat">
             <i class="bi bi-funnel-fill me-2"></i>Filter Riwayat
         </div>
+    
         <div class="card-body">
             <form action="{{ route('admin.history.index') }}" method="GET" class="row g-3 align-items-end form-filter-mobile">
                 <div class="col-md-5">
@@ -35,7 +37,7 @@
             <table class="table table-hover mb-0 align-middle table-pln">
                 <thead>
                     <tr>
-                        <th>Waktu Diambil</th>
+                        <th class="text-center">Waktu Diambil</th>
                         <th>Nama Penerima</th>
                         <th>Diambil Oleh</th>
                         <th>Dari Pengirim</th>
@@ -47,7 +49,7 @@
                 <tbody>
                     @forelse ($historyPaket as $paket)
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($paket->waktu_diambil)->format('d M Y, H:i') }}</td>
+                            <td class="text-center">{{ \Carbon\Carbon::parse($paket->waktu_diambil)->format('d M Y, H:i') }}</td>
                             <td>{{ $paket->nama_penerima }}</td>
                             <td>{{ $paket->nama_pengambil }}</td>
                             <td>{{ $paket->nama_pengirim }}</td>

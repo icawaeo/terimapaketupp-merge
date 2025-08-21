@@ -5,12 +5,18 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-8">
-        <h2 class="mb-4">Formulir Input Paket Baru</h2>
-        <div class="card">
-            <div class="card-header">Silakan isi detail paket</div>
-            <div class="card-body">
+        <div class="mb-3">
+            <h2 class="mb-1 fs-4" style="font-weight: 600;">Formulir Input Paket Baru</h2>
+            <p class="text-muted mb-0">
+                Silakan isi detail paket yang baru tiba di bawah ini.
+            </p>
+        </div>
 
-                {{-- INI BAGIAN PALING PENTING YANG HARUS DIPERBAIKI --}}
+        <div class="card card-form">
+            <div class="card-header card-form-header">
+                Detail Informasi Paket
+            </div>
+            <div class="card-body">
                 <form action="{{ route('admin.paket.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
@@ -49,12 +55,12 @@
                     {{-- Input File Gambar --}}
                     <div class="mb-3">
                         <label for="foto_paket" class="form-label">Foto Paket (Opsional)</label>
-                        <input class="form-control @error('foto_paket') is-invalid @enderror" type="file" id="foto_paket" name="foto_paket">
+                        <input class="form-control @error('foto_paket') is-invalid @enderror" type="file" id="foto_paket" name="foto_paket" accept="image/*" capture="environment">
                         @error('foto_paket')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
 
                     {{-- Tombol Aksi --}}
-                    <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end pt-3">
                         <a href="{{ route('admin.index') }}" class="btn btn-secondary me-2">Batal</a>
                         <button type="submit" class="btn btn-primary">Simpan Paket</button>
                     </div>

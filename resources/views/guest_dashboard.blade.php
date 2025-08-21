@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
+        <meta charset="utf-t">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Informasi Paket</title>
@@ -19,39 +19,50 @@
     </head>
     <body>
         <div class="main-wrapper">
-            {{-- Navbar Sederhana untuk Pengunjung --}}
-            <nav class="navbar navbar-expand-lg navbar-dark navbar-pln border-bottom">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
-                        <x-application-logo style="height: 36px;" />
+            {{-- DIUBAH: Navbar disamakan dengan navbar admin --}}
+            <nav class="navbar navbar-expand-lg navbar-dark navbar-pln fixed-top shadow-sm">
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="/">
+                        <x-application-logo style="height: 36px; margin-right: 10px;" />
+                        <span class="fw-bold navbar-brand-text">Cek Status Paket UPP SULUT</span>
                     </a>
-                    <ul class="navbar-nav ms-auto">
-                        @auth
-                            <li class="nav-item">
-                                <a href="{{ route('admin.index') }}" class="nav-link">Dashboard Admin</a>
-                            </li>
-                        @else
-                            <li class="nav-item">
-                                <a href="{{ route('login') }}" class="nav-link">Log in</a>
-                            </li>
-                        @endauth
-                    </ul>
+            
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+            
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center pt-3 pt-lg-0">
+                            @auth
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.index') }}" class="btn btn-primary">
+                                        Dashboard Admin
+                                    </a>
+                                </li>
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill px-3">
+                                        <i class="bi bi-box-arrow-in-right me-2"></i>Masuk sebagai Admin
+                                    </a>
+                                </li>
+                            @endauth
+                        </ul>
+                    </div>
                 </div>
             </nav>
 
-            <main class="container" style="padding-top: 80px; padding-bottom: 40px;">
+            {{-- DIUBAH: Padding atas disesuaikan agar konten tidak tertutup navbar --}}
+            <main class="container" style="padding-top: 120px; padding-bottom: 40px;">
                 @yield('content')
             </main>
         </div>
 
-        {{-- TAMBAHKAN ELEMEN POP-UP INI --}}
         <div id="imagePopupOverlay" class="image-popup-overlay">
             <img id="popupImage" src="" alt="Zoomed Image">
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-        {{-- TAMBAHKAN SCRIPT POP-UP INI --}}
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 const popupOverlay = document.getElementById('imagePopupOverlay');

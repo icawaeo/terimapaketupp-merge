@@ -1,52 +1,64 @@
-<nav class="navbar navbar-expand-lg navbar-dark navbar-pln border-bottom">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{{ auth()->check() ? route('admin.index') : route('dashboard.public') }}">
-            <x-application-logo style="height: 36px;" />
+<nav class="navbar navbar-expand-lg navbar-dark navbar-pln fixed-top shadow-sm">
+    <div class="container">
+        {{-- Brand/Logo di Kiri --}}
+        <a class="navbar-brand d-flex align-items-center" href="{{ auth()->check() ? route('admin.index') : route('dashboard.public') }}">
+            <x-application-logo style="height: 36px; margin-right: 10px;" />
+            <span class="fw-bold navbar-brand-text">Pencatatan Paket UPP SULUT</span>
         </a>
 
+        {{-- Tombol Toggler untuk Mobile --}}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
+        {{-- Konten Navbar --}}
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            {{-- Menu Pengguna dan Navigasi di Kanan --}}
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center pt-3 pt-lg-0">
                 @auth
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.index') ? 'active' : '' }}" href="{{ route('admin.index') }}">Dashboard</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.history.index') ? 'active' : '' }}" href="{{ route('admin.history.index') }}">History</a>
-                </li>
-                @endauth
-            </ul>
+                    {{-- Menu Dashboard dan History --}}
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom {{ request()->routeIs('admin.index') ? 'active' : '' }}" href="{{ route('admin.index') }}">
+                            <i class="bi bi-grid-fill me-1"></i>Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom {{ request()->routeIs('admin.history.index') ? 'active' : '' }}" href="{{ route('admin.history.index') }}">
+                            <i class="bi bi-clock-history me-1"></i>History
+                        </a>
+                    </li>
+                    
+                    {{-- Menu Manajemen Pengguna (Hanya Super Admin) --}}
+                    @if (Auth::user()->role == 'superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link nav-link-custom {{ request()->routeIs('admin.users.index') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
+                            <i class="bi bi-people-fill me-2"></i>Manajemen Pengguna
+                        </a>
+                    </li>
+                    @endif
 
-            <ul class="navbar-nav ms-auto">
-                @auth
+                    {{-- Dropdown Pengguna --}}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            {{ Auth::user()->name }}
+                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-person-circle me-2"></i>{{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a></li>
-                            
-                            @if (Auth::user()->role == 'superadmin')
-                                <li><a class="dropdown-item" href="{{ route('admin.users.index') }}">Manajemen Pengguna</a></li>
-                            @endif
-
-                            <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
-                                        Log Out
-                                    </a>
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="bi bi-box-arrow-right me-2"></i>Log Out
+                                    </button>
                                 </form>
                             </li>
                         </ul>
                     </li>
                 @else
+                    {{-- Tombol Login --}}
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link">Log in</a>
+                        <a href="{{ route('login') }}" class="btn btn-primary">
+                             Log in
+                        </a>
                     </li>
                 @endguest
             </ul>

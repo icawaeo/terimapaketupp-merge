@@ -24,7 +24,7 @@
             <div class="content-with-background">
                 @include('layouts.navigation')
 
-            <main class="container" style="padding-top: 80px; padding-bottom: 40px;">
+            <main class="container" style="padding-top: 120px; padding-bottom: 40px;">
                 @yield('content')
             </main>
             
@@ -35,6 +35,8 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         
         <script>
             document.addEventListener('DOMContentLoaded', function () {
@@ -56,5 +58,6 @@
                 });
             });
         </script>
+        @stack('scripts')
     </body>
 </html>

@@ -1,6 +1,6 @@
 /* Latar Belakang Gambar untuk Seluruh Halaman */
 body {
-    background-image: url('/images/bg_landing.png'); /* Pastikan path ini benar */
+    background-image: url('/images/bg_landing.png'); Pastikan path ini benar
     background-attachment: fixed;
     background-size: cover;
     background-position: center;
@@ -23,18 +23,34 @@ body {
 
 /* Kustomisasi Card (putih solid) */
 .card {
-    background-color: #d4f1f4; /* Warna Baby Blue */
+    background-color: #0f2a36; /* Warna Baby Blue */
     border: none;
     border-radius: 0.75rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
+    /* overflow: hidden; */
+}
+
+.card-riwayat {
+    background-color: #ffffff; /* Warna Baby Blue */
+    color:#0f2a36;
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    /* overflow: hidden; */
 }
 
 .card-header {
     background-color: transparent; /* Dibuat transparan agar mengikuti warna card */
+    color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1); /* Garis batas sedikit diperjelas */
     font-weight: 600;
     padding: 1rem 1.25rem;
+}
+
+.card-header-riwayat {
+    background-color: #f8f9fa; /* Contoh warna abu-abu terang */
+    color: #343a40; /* Contoh warna teks gelap */
+    border-bottom: 1px solid #dee2e6 !important;
 }
 
 /* Sisa kode styling lainnya... */
@@ -46,15 +62,9 @@ body {
 .stats-card .icon { font-size: 3.5rem; position: absolute; top: 1rem; right: 1.5rem; opacity: 0.2; transform: rotate(-15deg); }
 .btn-pln-primary { background-color: var(--pln-blue); border-color: var(--pln-blue); color: #fff; }
 .btn-pln-primary:hover { background-color: #005a92; border-color: #005a92; color: #fff; }
-.table-pln thead th { 
-    background-color: #189ab4; /* Warna Blue Green Anda */
-    color: #ffffff !important; /* Warna teks diubah menjadi putih agar terbaca */
-    font-weight: 600;
-    border-bottom: 2px solid #189ab4; /* Garis bawah disesuaikan */
- }
 
  .table-pln thead { 
-    background-color: #189ab4; /* Warna Blue Green Anda */
+    background-color: #1b4355; /* Warna Blue Green Anda */
     color: #ffffff; /* Warna teks diubah menjadi putih agar terbaca */
     font-weight: 600;
     border-bottom: 2px solid #189ab4; /* Garis bawah disesuaikan */
@@ -69,6 +79,8 @@ body {
     left: 0;
     right: 0;
     z-index: 1030;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .table-responsive > .card > .table {
@@ -98,10 +110,18 @@ body:not(:has(.main-wrapper)) .card {
 
 .card .table,
 .card .table tr,
-.card .table th,
-.card .table td {
+.card .table th {
     background-color: transparent !important;
 }
+
+.card .table td {
+    background-color: #ffffff;
+}
+
+.card .table tbody tr:hover td {
+    background-color: #edf5fb;
+}
+
 
 /* Mengatur ulang warna strip pada tabel agar serasi dengan latar baru */
 .card .table-striped > tbody > tr:nth-of-type(odd) > * {
@@ -112,18 +132,196 @@ body:not(:has(.main-wrapper)) .card {
     background-color: #05445E;
 }
 
-body::before {
-content: "";
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-image: url('/images/bg_landing.png');
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-filter: blur(5px);
--webkit-filter: blur(5px);
-z-index: -1; / Letakkan di belakang konten utama */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.87);
+    z-index: -1;
 }
+
+/* Styling Kustom untuk Nav Link */
+.nav-link-custom {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    border-radius: 0.5rem; /* Membuat sudut lebih melengkung */
+    transition: background-color 0.3s ease; /* Efek transisi halus */
+    margin: 0 0.25rem; /* Memberi sedikit jarak antar menu */
+}
+
+/* Efek saat cursor mouse di atas menu */
+.nav-link-custom:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Tampilan untuk menu yang sedang aktif */
+.nav-link-custom.active {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 500;
+}
+
+/* Styling Tabel Profesional seperti Contoh */
+
+/* Menghapus background-color dari .card .table agar tidak bentrok */
+.card .table {
+    background-color: #f9f5f5 !important;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+/* Mengatur header tabel (thead) */
+.table-pln thead th {
+    background-color: #1f2937; /* Warna abu-abu gelap seperti di contoh */
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #374151; /* Garis bawah header */
+    border-top: none;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+/* Mengatur sel pada body tabel (tbody td) */
+.table-pln tbody td {
+    background-color: #111827; /* Warna latar baris yang lebih gelap */
+    color: #161616; /* Warna teks utama */
+    border-top: 1px solid #edeef0 !important;  /* Garis pemisah antar baris */
+    vertical-align: middle;
+}
+
+/* Mengatur baris pertama pada body tabel agar tidak ada border atas */
+.table-pln tbody tr:first-child td {
+    border-top: none !important;
+}
+
+/* Efek hover pada baris tabel */
+.table-pln tbody tr:hover td {
+    background-color: #1f2937; /* Warna latar saat hover */
+}
+
+/* Mengatur radius sudut untuk tabel di dalam kartu */
+.card .table-responsive {
+    border-radius: 0.75rem;
+    /* overflow: hidden; */
+}
+
+.card .table-pln {
+    margin-bottom: 0;
+}
+
+/* Penyesuaian Tabel dan Kartu Statistik untuk Tampilan Mobile */
+@media (max-width: 767px) {
+    .table-pln th,
+    .table-pln td {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.4rem; 
+        white-space: nowrap; 
+    }
+
+    .table-pln .btn {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .table-pln img {
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    /* Penyesuaian Kartu Statistik di Mobile */
+    .stats-card {
+        padding: 1rem; /* Padding dikecilkan */
+    }
+    .stats-card h5 {
+        font-size: 0.85rem; /* Judul kartu dikecilkan */
+    }
+    .stats-card .stats-number {
+        font-size: 1.75rem; /* Angka statistik dikecilkan */
+    }
+    .stats-card .icon {
+        font-size: 2.5rem; /* Ikon di latar belakang dikecilkan */
+        top: 0.5rem;
+        right: 1rem;
+    }
+}
+
+/* Penyesuaian ukuran font judul tabel di mobile */
+@media (max-width: 767px) {
+    .table-title {
+        font-size: 1.1rem !important; /* Mengecilkan judul */
+    }
+
+    .table-description {
+        font-size: 0.8rem; /* Mengecilkan teks deskripsi */
+    }
+
+    .custom-info-alert {
+        font-size: 0.1rem; /* Ukuran font kotak info dikecilkan */
+    }
+}
+
+.content-with-background {
+    overflow: visible;
+}
+
+/* Styling untuk Kotak Info Kustom */
+.custom-info-alert {
+    background-color: #e7f5ff; /* Latar biru muda */
+    color: #005a92; /* Teks biru tua */
+    border: 1px solid #bce8f1; /* Border biru muda */
+    border-left: 5px solid #0073b8; /* Border kiri biru tebal */
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.custom-info-alert .bi {
+    color: #0073b8; /* Warna ikon disamakan dengan border kiri */
+    font-size: 1.25rem;
+}
+
+/* Mengatur sudut melengkung untuk semua form input */
+.form-control {
+    border-radius: 0.5rem !important; /* Anda bisa sesuaikan nilainya */
+}
+
+/* Memperbaiki sudut melengkung di baris terakhir tabel */
+.table-pln > tbody > tr:last-child > td:first-child {
+    border-bottom-left-radius: 0.75rem;
+}
+
+.table-pln > tbody > tr:last-child > td:last-child {
+    border-bottom-right-radius: 0.75rem;
+}
+
+/* Styling Kustom untuk Kartu Formulir */
+.card-form {
+    background-color: #edf8ff; /* <-- Ganti warna LATAR KONTEN di sini */
+    color: #333333; /* <-- Ganti warna TEKS UTAMA di sini */
+}
+
+.card-form .card-form-header {
+    background-color: #ffffff; /* <-- Ganti warna LATAR HEADER di sini */
+    color: #495057; /* <-- Ganti warna TEKS HEADER di sini */
+}
+
+/* Mengatur agar teks alamat bisa wrap */
+/* Mengatur agar teks alamat bisa wrap dan membatasi lebarnya */
+.address-cell {
+    white-space: normal !important; /* Memaksa teks untuk turun baris */
+    word-wrap: break-word;
+    min-width: 100px; /* Lebar minimal kolom */
+    max-width: 150px; /* Lebar maksimal sebelum teks turun baris */
+}
+
+/* Mengecilkan font brand navbar di layar kecil */
+@media (max-width: 420px) {
+    .navbar-brand-text {
+        font-size: 0.8rem;
+    }
+}
+
