@@ -54,7 +54,7 @@ class PaketController extends Controller
             'kontak_pengirim' => 'nullable|string|max:20',
             'alamat_pengirim' => 'nullable|string',
             'ekspedisi' => 'nullable|string|max:100',
-            'foto_paket' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240', // Validasi gambar maks 2MB
+            'foto_paket' => 'required|image|mimes:jpeg,png,jpg,gif|max:10240',
         ]);
 
         // Simpan semua data dari request ke dalam sebuah variabel
@@ -64,7 +64,7 @@ class PaketController extends Controller
         if ($request->hasFile('foto_paket')) {
             // Simpan gambar ke storage/app/public/paket-photos
             // dan simpan path-nya ke variabel $data
-            $path = $request->file('foto_paket')->store('paket-photos', 'public');
+            $path = $request->file('foto_paket')->store('paket-photos', 'public_uploads');
             $data['foto_paket'] = $path;
         }
         
@@ -74,7 +74,11 @@ class PaketController extends Controller
         // 4. Buat data paket baru di database menggunakan semua data yang sudah disiapkan
         Paket::create($data);
 
-        return redirect()->route('admin.index')->with('success', 'Paket berhasil ditambahkan!');
+        if (auth()->check()) {
+            return redirect()->route('admin.index')->with('success', 'Paket berhasil ditambahkan!');
+        } else {
+            return redirect()->back()->with('success', 'Terima kasih! Paket telah berhasil dicatat.');
+        }
     }
 
     /**

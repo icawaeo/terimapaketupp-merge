@@ -54,7 +54,7 @@
     <div class="alert custom-info-alert d-flex align-items-center mb-3" role="alert">
         <i class="bi bi-info-circle-fill flex-shrink-0 me-2"></i>
         <div>
-            Info: Tambah paket baru dengan tombol di atas. Tandai "Ambil" jika paket sudah diterima.
+            Info: Tandai "Ambil" jika paket sudah diterima.
         </div>
     </div>
 
@@ -83,7 +83,7 @@
                             <td>{{ $paket->kontak_pengirim ?? '-' }}</td>
                             <td>
                                 @if ($paket->foto_paket)
-                                    <img src="{{ asset('storage/' . $paket->foto_paket) }}" alt="Foto Paket" style="width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem; cursor: pointer;" class="image-popup-trigger" data-image-url="{{ asset('storage/' . $paket->foto_paket) }}">
+                                    <img src="{{ asset('uploads/' . $paket->foto_paket) }}" alt="Foto Paket" style="width: 60px; height: 60px; object-fit: cover; border-radius: 0.5rem; cursor: pointer;" class="image-popup-trigger" data-image-url="{{ asset('uploads/' . $paket->foto_paket) }}">
                                 @else
                                     -
                                 @endif

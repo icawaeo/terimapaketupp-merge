@@ -1,9 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark navbar-pln fixed-top shadow-sm">
     <div class="container">
         {{-- Brand/Logo di Kiri --}}
-        <a class="navbar-brand d-flex align-items-center" href="{{ auth()->check() ? route('admin.index') : route('dashboard.public') }}">
+        <a class="navbar-brand d-flex align-items-center" href="{{ auth()->check() ? route('admin.index') : route('paket.create') }}">
             <x-application-logo style="height: 36px; margin-right: 10px;" />
-            <span class="fw-bold navbar-brand-text">Pencatatan Paket UPP SULUT</span>
+            <span class="navbar-brand-text" style="font-size: 0.9rem; line-height: 1.2;">
+                @if(auth()->check())
+                    <span class="fw-semibold d-block">Admin</span>
+                @endif
+                <span class="fw-normal">Pencatatan Paket UPP SULUT</span>
+            </span>
         </a>
 
         {{-- Tombol Toggler untuk Mobile --}}
@@ -56,8 +61,8 @@
                 @else
                     {{-- Tombol Login --}}
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="btn btn-primary">
-                             Log in
+                        <a href="{{ route('login') }}" class="btn btn-outline-light rounded-pill px-3">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Masuk sebagai Admin
                         </a>
                     </li>
                 @endguest

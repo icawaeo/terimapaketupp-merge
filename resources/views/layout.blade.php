@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('dashboard.public') }}">📦 Sistem Paket</a>
+            <a class="navbar-brand" href="{{ route('paket.create') }}">📦 Sistem Paket</a>
              @auth
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

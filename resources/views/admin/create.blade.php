@@ -3,6 +3,18 @@
 @section('title', 'Admin - Tambah Paket Baru')
 
 @section('content')
+
+@if (session('success'))
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> {{ session('success') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+@endif
+
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="mb-3">
@@ -17,7 +29,7 @@
                 Detail Informasi Paket
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.paket.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ auth()->check() ? route('admin.paket.store') : route('paket.public.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     {{-- Input Nama Penerima --}}
@@ -54,15 +66,21 @@
 
                     {{-- Input File Gambar --}}
                     <div class="mb-3">
-                        <label for="foto_paket" class="form-label">Foto Paket (Opsional)</label>
-                        <input class="form-control @error('foto_paket') is-invalid @enderror" type="file" id="foto_paket" name="foto_paket" accept="image/*" capture="environment">
+                        <label for="foto_paket" class="form-label">Foto Paket</label>
+                        <input class="form-control @error('foto_paket') is-invalid @enderror" type="file" id="foto_paket" name="foto_paket" accept="image/*" capture="environment" required>
                         @error('foto_paket')<div class="invalid-feedback">{{ $message }}</div>@enderror
                     </div>
 
                     {{-- Tombol Aksi --}}
                     <div class="d-flex justify-content-end pt-3">
-                        <a href="{{ route('admin.index') }}" class="btn btn-secondary me-2">Batal</a>
-                        <button type="submit" class="btn btn-primary">Simpan Paket</button>
+                        @auth
+                            <a href="{{ route('admin.index') }}" class="btn btn-secondary me-2">Batal</a>
+                        @endauth
+                        <button type="submit" class="btn" style="background-color: #104567; color: white; border-color: #104567;"
+                            onmouseover="this.style.backgroundColor='#0a324b'; this.style.borderColor='#0a324b';"
+                            onmouseout="this.style.backgroundColor='#104567'; this.style.borderColor='#104567';">
+                            Simpan Paket
+                        </button>
                     </div>
                 </form>
             </div>

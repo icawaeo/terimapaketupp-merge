@@ -14,7 +14,8 @@ use App\Http\Controllers\Admin\UserController;
 */
 
 // Rute untuk Dashboard Publik
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard.public');
+Route::get('/', [PaketController::class, 'create'])->name('paket.create');
+Route::post('/paket', [PaketController::class, 'store'])->name('paket.public.store');
 
 // Rute default dari Breeze, mengarahkan ke halaman admin kita
 Route::get('/dashboard', function () {
